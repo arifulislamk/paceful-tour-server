@@ -27,14 +27,31 @@ async function run() {
         await client.connect();
         // Send a ping to confirm a successful connection
 
-        const touristUserCollection = client.db("touristsDB").collection('tourist')
+        const allSpotsCollection = client.db("allSpotsDB").collection("spot")
+        const touristUserCollection = client.db("touristsDB").collection('tourist');
 
+        // allSpotsCollection database code 
+        app.get('/spot', async (req, res) => {
+            const cursor = allSpotsCollection.find();
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+        app.post('/spot', async (req, res) => {
+            const spot = req.body;
+            console.log(spot)
+            const result = await allSpotsCollection.insertOne(spot)
+            res.send(result)
+        })
+
+        // user apis data 
         app.post('/user', async (req, res) => {
             const user = req.body;
             console.log(user)
             const result = await touristUserCollection.insertOne(user);
             res.send(result)
         })
+
+
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
