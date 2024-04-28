@@ -33,10 +33,17 @@ async function run() {
             const cursor = allSpotsCollection.find();
             const result = await cursor.toArray();
             res.send(result)
-        }) 
-        app.get('/myList/:useremail', async(req, res)=> {
-            const user = req.params.useremail ;
-            const query = { useremail : user} 
+        })
+        app.get('/myList/:useremail', async (req, res) => {
+            const user = req.params.useremail;
+            const query = { useremail: user }
+            const result = await allSpotsCollection.find(query).toArray()
+            res.send(result)
+        })
+        
+        app.get('/update/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) }
             const result = await allSpotsCollection.find(query).toArray()
             res.send(result)
         })
@@ -47,11 +54,11 @@ async function run() {
             const result = await allSpotsCollection.insertOne(spot)
             res.send(result)
         })
-        
-        app.delete('/spot/:id', async(req,res) => {
-            const id = req.params.id ;
-            const query = { _id : new ObjectId(id)} ;
-            const result = await allSpotsCollection.deleteOne(query) ;
+
+        app.delete('/spot/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await allSpotsCollection.deleteOne(query);
             res.send(result)
         })
 
