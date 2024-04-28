@@ -26,6 +26,7 @@ async function run() {
         // Send a ping to confirm a successful connection
 
         const allSpotsCollection = client.db("allSpotsDB").collection("spot")
+        const countryCollection = client.db("countryDB").collection("country")
         const touristUserCollection = client.db("touristsDB").collection('tourist');
 
         // allSpotsCollection database code 
@@ -93,7 +94,11 @@ async function run() {
         })
 
         // countri apis 
-
+        app.get('/country', async(req, res)=> {
+            const coursor = countryCollection.find() ;
+            const result = await coursor.toArray() ;
+            res.send(result)
+        })
 
 
         await client.db("admin").command({ ping: 1 });
