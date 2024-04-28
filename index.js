@@ -1,5 +1,5 @@
 const express = require('express');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config()
 const app = express();
@@ -47,8 +47,15 @@ async function run() {
             const result = await allSpotsCollection.insertOne(spot)
             res.send(result)
         })
+        
+        app.delete('/spot/:id', async(req,res) => {
+            const id = req.params.id ;
+            const query = { _id : new ObjectId(id)} ;
+            const result = await allSpotsCollection.deleteOne(query) ;
+            res.send(result)
+        })
 
-        // user apis data 
+        // email registration user apis data 
         app.post('/user', async (req, res) => {
             const user = req.body;
             console.log(user)
