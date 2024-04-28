@@ -22,7 +22,7 @@ const client = new MongoClient(uri, {
 async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
-        await client.connect();
+        // await client.connect();
         // Send a ping to confirm a successful connection
 
         const allSpotsCollection = client.db("allSpotsDB").collection("spot")
@@ -33,7 +33,14 @@ async function run() {
             const cursor = allSpotsCollection.find();
             const result = await cursor.toArray();
             res.send(result)
+        }) 
+        app.get('/myList/:useremail', async(req, res)=> {
+            const user = req.params.useremail ;
+            const query = { useremail : user} 
+            const result = await allSpotsCollection.find(query).toArray()
+            res.send(result)
         })
+
         app.post('/spot', async (req, res) => {
             const spot = req.body;
             console.log(spot)
@@ -48,6 +55,9 @@ async function run() {
             const result = await touristUserCollection.insertOne(user);
             res.send(result)
         })
+
+        // countri apis 
+
 
 
         await client.db("admin").command({ ping: 1 });
