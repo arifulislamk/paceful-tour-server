@@ -49,7 +49,7 @@ async function run() {
             res.send(result)
         })
 
-        app.get('/:country_name', async(req, res)=> {
+        app.get('/country/:country_name', async(req, res)=> {
             const country = req.params.country_name ;
             const query = { country : country} ;
             const result = await allSpotsCollection.find(query).toArray() ;
@@ -92,7 +92,7 @@ async function run() {
             res.send(result)
         })
 
-        // email registration user apis data 
+        // Email registration user apis data 
         app.post('/user', async (req, res) => {
             const user = req.body;
             console.log(user)
