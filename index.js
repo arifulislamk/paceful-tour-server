@@ -49,6 +49,13 @@ async function run() {
             res.send(result)
         })
 
+        app.get('/:country_name', async(req, res)=> {
+            const country = req.params.country_name ;
+            const query = { country : country} ;
+            const result = await allSpotsCollection.find(query).toArray() ;
+            res.send(result)
+        })
+
         app.put('/update/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id) };
@@ -93,7 +100,7 @@ async function run() {
             res.send(result)
         })
 
-        // countri apis 
+        // country database apis 
         app.get('/country', async(req, res)=> {
             const coursor = countryCollection.find() ;
             const result = await coursor.toArray() ;
