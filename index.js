@@ -35,6 +35,11 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result)
         })
+        app.get('/spotSix', async (req, res) => {
+            const cursor = allSpotsCollection.find().limit(6);
+            const result = await cursor.toArray();
+            res.send(result)
+        })
         app.get('/myList/:useremail', async (req, res) => {
             const user = req.params.useremail;
             const query = { useremail: user }
