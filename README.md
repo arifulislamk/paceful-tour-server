@@ -3,6 +3,10 @@
 *  Link : https://peaceful-tour.web.app/ 
 *  Serversite : https://github.com/arifulislamk/paceful-tour-server
 *  Clientsite : https://github.com/arifulislamk/paceful-tour-client
+
+# Overview
+Registered users can add their own travel spots, complete with details, to the all spots section. Users can also edit, update, or delete their added spots, making trip planning easy and personalized.
+
 # how to setup this repo
 - frist npm i
 - env file server and client
